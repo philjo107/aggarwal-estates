@@ -1,0 +1,529 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Agarwal Estates | Visionary Architecture, Intelligent Living</title>
+    <meta name="description" content="Premium luxury real estate in Bangalore by Agarwal Estates. Experience transparency, innovation, and timeless design.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- Scripts -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <style>
+        :root {
+            --navy: #002366;
+            --gold: #C5A059;
+            --cream: #FAF9F6;
+            --charcoal: #333333;
+            --gold-light: #dfc58d;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--cream);
+            color: var(--charcoal);
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, h4, .serif {
+            font-family: 'Playfair Display', serif;
+        }
+
+        .bg-navy { background-color: var(--navy); }
+        .text-navy { color: var(--navy); }
+        .bg-gold { background-color: var(--gold); }
+        .text-gold { color: var(--gold); }
+        .border-gold { border-color: var(--gold); }
+
+        /* Custom Transitions */
+        .btn-luxury {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.5s cubic-bezier(0.19, 1, 0.22, 1);
+            border: 1px solid var(--gold);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            font-weight: 500;
+            font-size: 0.85rem;
+        }
+
+        .btn-luxury:hover {
+            box-shadow: 0 0 20px rgba(197, 160, 89, 0.4);
+            transform: translateY(-2px);
+        }
+
+        .btn-gold {
+            background-color: var(--gold);
+            color: white;
+        }
+
+        .btn-outline {
+            color: var(--gold);
+            background: transparent;
+        }
+
+        .btn-outline:hover {
+            background: var(--gold);
+            color: white;
+        }
+
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+        }
+
+        .nav-link {
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 1px;
+            bottom: -4px;
+            left: 0;
+            background-color: var(--gold);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Image Parallax Placeholder */
+        .hero-bg {
+            background: linear-gradient(rgba(0, 35, 102, 0.6), rgba(0, 35, 102, 0.6)), 
+                        url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        .card-border {
+            border: 1px solid rgba(197, 160, 89, 0.2);
+            transition: border 0.4s ease;
+        }
+
+        .card-border:hover {
+            border: 1px solid rgba(197, 160, 89, 1);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #C5A059, #dfc58d, #C5A059);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* Mobile Nav */
+        #mobile-menu {
+            transform: translateX(100%);
+            transition: transform 0.4s cubic-bezier(0.19, 1, 0.22, 1);
+        }
+        #mobile-menu.active {
+            transform: translateX(0);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Header -->
+    <header class="fixed w-full z-50 bg-white/90 backdrop-blur-md border-b border-gold/10">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center space-x-2">
+                <div class="w-10 h-10 bg-navy flex items-center justify-center rounded-sm">
+                    <span class="text-gold font-serif text-xl font-bold">A</span>
+                </div>
+                <div class="flex flex-col leading-none">
+                    <span class="text-navy font-serif text-xl font-bold tracking-widest uppercase">Agarwal</span>
+                    <span class="text-gold text-[10px] tracking-[0.3em] uppercase">Estates</span>
+                </div>
+            </div>
+
+            <!-- Desktop Nav -->
+            <div class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="nav-link text-xs uppercase tracking-widest font-medium">Home</a>
+                <a href="#projects" class="nav-link text-xs uppercase tracking-widest font-medium">Projects</a>
+                <a href="#about" class="nav-link text-xs uppercase tracking-widest font-medium">About</a>
+                <a href="#process" class="nav-link text-xs uppercase tracking-widest font-medium">Ownership</a>
+                <button onclick="scrollToCTA()" class="btn-luxury btn-gold px-6 py-3 ml-4">
+                    Book a Private Tour
+                </button>
+            </div>
+
+            <!-- Mobile Toggle -->
+            <button class="md:hidden text-navy" id="menu-toggle">
+                <i data-lucide="menu"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div id="mobile-menu" class="fixed inset-0 bg-navy z-[60] flex flex-col justify-center items-center space-y-8">
+        <button class="absolute top-6 right-6 text-gold" id="menu-close">
+            <i data-lucide="x" class="w-8 h-8"></i>
+        </button>
+        <a href="#home" class="text-white text-2xl font-serif">Home</a>
+        <a href="#projects" class="text-white text-2xl font-serif">Projects</a>
+        <a href="#about" class="text-white text-2xl font-serif">About</a>
+        <a href="#process" class="text-white text-2xl font-serif">Ownership</a>
+        <button onclick="scrollToCTA(); closeMobileMenu();" class="btn-luxury btn-gold px-8 py-4 text-white">
+            Book a Private Tour
+        </button>
+    </div>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-bg min-h-screen flex items-center justify-center text-center text-white px-6">
+        <div class="max-w-4xl">
+            <h4 class="text-gold tracking-[0.5em] uppercase text-sm mb-6 reveal">Bengaluru's Elite Developer</h4>
+            <h1 class="text-5xl md:text-7xl mb-8 leading-tight reveal">Where Visionary Architecture <br> <span class="italic">Meets Intelligent Living.</span></h1>
+            <p class="text-lg md:text-xl font-light mb-10 max-w-2xl mx-auto reveal" style="transition-delay: 200ms;">
+                Curating masterpieces in Indiranagar, Sarjapur, and Whitefield for the modern visionary.
+            </p>
+            <div class="flex flex-col md:flex-row items-center justify-center gap-6 reveal" style="transition-delay: 400ms;">
+                <button onclick="scrollToCTA()" class="btn-luxury btn-gold px-10 py-5 w-full md:w-auto">Book a Private Tour</button>
+                <a href="#projects" class="btn-luxury btn-outline border-white text-white hover:bg-white hover:text-navy px-10 py-5 w-full md:w-auto">Explore Collection</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Stakes Section -->
+    <section class="py-24 bg-white overflow-hidden">
+        <div class="container mx-auto px-6">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h4 class="text-gold tracking-widest uppercase text-sm mb-4">The Reality of Choice</h4>
+                    <h2 class="text-4xl md:text-5xl text-navy mb-8 leading-snug">You’ve built a legacy in business; <br><span class="text-charcoal italic">Don’t settle for a compromise.</span></h2>
+                    <p class="text-charcoal/70 mb-12 text-lg">In Bangalore’s high-stakes real estate market, elite buyers often face systemic frustrations that threaten their vision of home.</p>
+                    
+                    <div class="space-y-8">
+                        <div class="flex gap-6 items-start">
+                            <div class="mt-1 text-gold"><i data-lucide="eye-off" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">The Transparency Gap</h3>
+                                <p class="text-charcoal/60">Tired of hidden charges and fluctuating floor areas? We eliminate market volatility with absolute clarity.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="mt-1 text-gold"><i data-lucide="package" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">The 'Box' Living Trap</h3>
+                                <p class="text-charcoal/60">Uninspired, repetitive designs that fail to reflect your success or provide the breathing room your family deserves.</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-6 items-start">
+                            <div class="mt-1 text-gold"><i data-lucide="clock" class="w-6 h-6"></i></div>
+                            <div>
+                                <h3 class="text-xl font-semibold mb-2">The Delay Dilemma</h3>
+                                <p class="text-charcoal/60">For high-performers, time is the ultimate asset. We ensure your life plans aren't stalled by construction delays.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="relative reveal" style="transition-delay: 300ms;">
+                    <div class="aspect-[4/5] bg-gray-200 overflow-hidden rounded-sm">
+                        <img src="https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80&w=1200" alt="Luxury Interior" class="w-full h-full object-cover">
+                    </div>
+                    <div class="absolute -bottom-8 -left-8 bg-navy p-10 text-white hidden lg:block border-l-4 border-gold">
+                        <p class="font-serif italic text-2xl">"Luxury is not a luxury <br>if it costs you <br>peace of mind."</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Value Proposition / Projects -->
+    <section id="projects" class="py-24 bg-cream">
+        <div class="container mx-auto px-6">
+            <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+                <h4 class="text-gold tracking-[0.3em] uppercase text-sm mb-4">The Agarwal Signature</h4>
+                <h2 class="text-4xl md:text-5xl text-navy mb-6">Strategic Geography, <br>Unmatched Excellence</h2>
+                <div class="w-24 h-px bg-gold mx-auto mb-8"></div>
+                <p class="text-charcoal/70">Our properties are located at the nexus of influence, designed specifically for Bangalore’s tech titans and visionary business owners.</p>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="group reveal" style="transition-delay: 100ms;">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4] card-border">
+                        <img src="https://images.unsplash.com/photo-1545324418-cc1a3fa10c00?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" alt="Indiranagar">
+                        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <p class="text-white text-sm">Exclusive Urban Living</p>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-2">Indiranagar Heights</h3>
+                    <p class="text-gold text-xs tracking-widest uppercase mb-4">For the Urban Socialite</p>
+                    <p class="text-charcoal/60 text-sm leading-relaxed">Penthouse suites with private terraces and 360-degree city views.</p>
+                </div>
+                <!-- Project 2 -->
+                <div class="group reveal" style="transition-delay: 200ms;">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4] card-border">
+                        <img src="https://images.unsplash.com/photo-1600607687920-4e2a09cf159d?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" alt="Sarjapur">
+                        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <p class="text-white text-sm">Balanced Visionary Living</p>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-2">Sarjapur Greens</h3>
+                    <p class="text-gold text-xs tracking-widest uppercase mb-4">For the Balanced Visionary</p>
+                    <p class="text-charcoal/60 text-sm leading-relaxed">Sustainable smart-villas integrated with lush ecosystem corridors.</p>
+                </div>
+                <!-- Project 3 -->
+                <div class="group reveal" style="transition-delay: 300ms;">
+                    <div class="relative overflow-hidden mb-6 aspect-[3/4] card-border">
+                        <img src="https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=800" class="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700 transform group-hover:scale-110" alt="Whitefield">
+                        <div class="absolute bottom-0 left-0 right-0 p-8 bg-gradient-to-t from-navy to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                            <p class="text-white text-sm">The Tech Titan's Estate</p>
+                        </div>
+                    </div>
+                    <h3 class="text-2xl font-serif mb-2">Whitefield Platinum</h3>
+                    <p class="text-gold text-xs tracking-widest uppercase mb-4">For the Tech Titan</p>
+                    <p class="text-charcoal/60 text-sm leading-relaxed">Advanced automation & home theaters, minutes from the IT hub.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Guide Section -->
+    <section id="about" class="py-24 bg-navy text-white">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <h4 class="text-gold tracking-[0.3em] uppercase text-sm mb-6">A Legacy of Trust</h4>
+                    <h2 class="text-4xl md:text-5xl mb-8 leading-tight">20 Years of navigating <br>the Bangalore Landscape.</h2>
+                    <p class="text-white/70 mb-10 text-lg leading-relaxed">
+                        We aren't just builders; we are stewards of your investment. Our history is rooted in providing a seamless, transparent experience for Bangalore's elite.
+                    </p>
+                    
+                    <div class="grid grid-cols-2 gap-8 mb-12">
+                        <div>
+                            <span class="block text-4xl font-serif text-gold mb-2">1,000+</span>
+                            <span class="text-xs uppercase tracking-widest text-white/50">Homes Delivered</span>
+                        </div>
+                        <div>
+                            <span class="block text-4xl font-serif text-gold mb-2">₹5000Cr+</span>
+                            <span class="text-xs uppercase tracking-widest text-white/50">Assets Managed</span>
+                        </div>
+                    </div>
+
+                    <div class="flex items-center space-x-4 p-6 border border-gold/30 bg-white/5 backdrop-blur-sm">
+                        <div class="text-gold"><i data-lucide="shield-check" class="w-10 h-10"></i></div>
+                        <div>
+                            <h4 class="font-semibold text-lg">RERA Compliant & Beyond</h4>
+                            <p class="text-white/60 text-sm">Setting the benchmark for timeline adherence and documentation transparency.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 reveal" style="transition-delay: 300ms;">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&q=80&w=600" class="w-full h-64 object-cover mt-12 border border-gold/20" alt="Office">
+                    <img src="https://images.unsplash.com/photo-1507679799987-c73779587ccf?auto=format&fit=crop&q=80&w=600" class="w-full h-64 object-cover border border-gold/20" alt="Team">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- The Plan Section -->
+    <section id="process" class="py-24 bg-white">
+        <div class="container mx-auto px-6">
+            <div class="text-center mb-20 reveal">
+                <h4 class="text-gold tracking-widest uppercase text-sm mb-4">The Path to Ownership</h4>
+                <h2 class="text-4xl text-navy">Effortless. Refined. Curated.</h2>
+            </div>
+
+            <div class="grid md:grid-cols-3 gap-0 border border-gold/10">
+                <!-- Step 1 -->
+                <div class="p-12 text-center border-b md:border-b-0 md:border-r border-gold/10 hover:bg-cream transition-colors duration-500 reveal" style="transition-delay: 100ms;">
+                    <div class="text-gold mb-8 flex justify-center">
+                        <span class="text-5xl font-serif italic opacity-30 absolute">01</span>
+                        <i data-lucide="phone-call" class="w-12 h-12 relative z-10 mt-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Personalized Consultation</h3>
+                    <p class="text-charcoal/60">Connect with a Portfolio Manager to align on your specific lifestyle needs and investment goals.</p>
+                </div>
+                <!-- Step 2 -->
+                <div class="p-12 text-center border-b md:border-b-0 md:border-r border-gold/10 hover:bg-cream transition-colors duration-500 reveal" style="transition-delay: 200ms;">
+                    <div class="text-gold mb-8 flex justify-center">
+                        <span class="text-5xl font-serif italic opacity-30 absolute">02</span>
+                        <i data-lucide="map" class="w-12 h-12 relative z-10 mt-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Private Site Immersion</h3>
+                    <p class="text-charcoal/60">Experience the "Agarwal Signature" firsthand via an exclusive, curated private tour of our flagship properties.</p>
+                </div>
+                <!-- Step 3 -->
+                <div class="p-12 text-center hover:bg-cream transition-colors duration-500 reveal" style="transition-delay: 300ms;">
+                    <div class="text-gold mb-8 flex justify-center">
+                        <span class="text-5xl font-serif italic opacity-30 absolute">03</span>
+                        <i data-lucide="key" class="w-12 h-12 relative z-10 mt-4"></i>
+                    </div>
+                    <h3 class="text-xl font-bold mb-4">Seamless Ownership</h3>
+                    <p class="text-charcoal/60">A white-glove handover experience with transparent digital documentation and clear escrow milestones.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Social Proof Section -->
+    <section class="py-24 bg-cream border-y border-gold/10">
+        <div class="container mx-auto px-6">
+            <div class="grid lg:grid-cols-3 gap-12 items-center">
+                <div class="reveal">
+                    <h2 class="text-3xl font-serif text-navy mb-6">Evidence of Superiority</h2>
+                    <div class="space-y-6">
+                        <div class="flex items-center space-x-4">
+                            <i data-lucide="award" class="text-gold w-8 h-8"></i>
+                            <div>
+                                <p class="font-bold text-navy">Best Luxury Developer 2025</p>
+                                <p class="text-xs text-charcoal/60">Bangalore Real Estate Summit</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <i data-lucide="star" class="text-gold w-8 h-8"></i>
+                            <div>
+                                <p class="font-bold text-navy">Top-Rated Quality (5 Yrs)</p>
+                                <p class="text-xs text-charcoal/60">Transparency & Construction</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="lg:col-span-2 grid md:grid-cols-2 gap-8">
+                    <!-- Testimonial 1 -->
+                    <div class="bg-white p-10 border-t-2 border-gold shadow-sm reveal" style="transition-delay: 100ms;">
+                        <div class="flex text-gold mb-6"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-charcoal/70 italic mb-8">"Agarwal Estates delivered more than a home; they delivered peace of mind. Their transparency in the Sarjapur project was a breath of fresh air."</p>
+                        <p class="font-bold text-navy">CTO, Global Tech Firm</p>
+                        <p class="text-xs uppercase tracking-widest text-gold mt-1">Sarjapur Resident</p>
+                    </div>
+                    <!-- Testimonial 2 -->
+                    <div class="bg-white p-10 border-t-2 border-gold shadow-sm reveal" style="transition-delay: 200ms;">
+                        <div class="flex text-gold mb-6"><i data-lucide="quote" class="w-8 h-8"></i></div>
+                        <p class="text-charcoal/70 italic mb-8">"The attention to detail in the Indiranagar penthouse is unmatched. It truly is a legacy property that my family will cherish for decades."</p>
+                        <p class="font-bold text-navy">Founder, Leading Indian Unicorn</p>
+                        <p class="text-xs uppercase tracking-widest text-gold mt-1">Indiranagar Owner</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Call to Action (The Closer) -->
+    <section id="cta" class="py-32 bg-navy relative overflow-hidden">
+        <!-- Background Accents -->
+        <div class="absolute top-0 right-0 w-1/3 h-full bg-white opacity-[0.02] transform skew-x-12 translate-x-20"></div>
+        
+        <div class="container mx-auto px-6 text-center relative z-10">
+            <div class="max-w-4xl mx-auto">
+                <h4 class="text-gold tracking-[0.4em] uppercase text-sm mb-8 reveal">The Final Opportunity</h4>
+                <h2 class="text-5xl md:text-7xl text-white font-serif mb-10 leading-tight reveal">Don't leave your legacy <br><span class="italic text-gold">to chance.</span></h2>
+                <p class="text-white/70 text-lg md:text-xl mb-12 max-w-2xl mx-auto reveal">
+                    In a city where space is the ultimate luxury, our most sought-after residences are secured months in advance. Secure your place at the forefront of Bangalore’s architectural evolution.
+                </p>
+                <div class="reveal">
+                    <button class="btn-luxury bg-gold text-white px-12 py-6 text-lg hover:scale-105 transition-transform">
+                        Book Your Private Tour
+                    </button>
+                    <p class="text-gold/60 mt-6 text-sm tracking-widest uppercase">Experience exclusivity. By appointment only.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-white py-12 border-t border-gold/10">
+        <div class="container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center gap-8">
+                <div class="flex items-center space-x-2">
+                    <div class="w-8 h-8 bg-navy flex items-center justify-center rounded-sm">
+                        <span class="text-gold font-serif text-lg font-bold">A</span>
+                    </div>
+                    <div class="flex flex-col leading-none">
+                        <span class="text-navy font-serif text-lg font-bold tracking-widest uppercase">Agarwal Estates</span>
+                    </div>
+                </div>
+                <div class="flex space-x-8 text-xs uppercase tracking-widest font-medium text-charcoal/60">
+                    <a href="#" class="hover:text-gold transition-colors">Instagram</a>
+                    <a href="#" class="hover:text-gold transition-colors">LinkedIn</a>
+                    <a href="#" class="hover:text-gold transition-colors">Twitter</a>
+                </div>
+                <p class="text-xs text-charcoal/40 uppercase tracking-widest">© 2026 Agarwal Estates. Legacy in every brick.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Initialize Lucide Icons
+        lucide.createIcons();
+
+        // Mobile Menu Logic
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        menuToggle.addEventListener('click', () => {
+            mobileMenu.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        });
+
+        const closeMobileMenu = () => {
+            mobileMenu.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        };
+
+        menuClose.addEventListener('click', closeMobileMenu);
+
+        // Scroll Function
+        function scrollToCTA() {
+            document.getElementById('cta').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // GSAP Scroll Animations
+        gsap.registerPlugin(ScrollTrigger);
+
+        document.querySelectorAll('.reveal').forEach((el) => {
+            gsap.fromTo(el, 
+                { opacity: 0, y: 30 },
+                { 
+                    opacity: 1, 
+                    y: 0, 
+                    duration: 1.2, 
+                    ease: "power3.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 85%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+
+        // Cinematic Parallax for Hero
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.pageYOffset;
+            const hero = document.querySelector('.hero-bg');
+            hero.style.backgroundPositionY = (scrollPos * 0.5) + 'px';
+        });
+
+        // Sticky Header Effect
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            if (window.scrollY > 100) {
+                header.classList.add('shadow-lg');
+                header.classList.remove('py-4');
+                header.classList.add('py-2');
+            } else {
+                header.classList.remove('shadow-lg');
+                header.classList.remove('py-2');
+                header.classList.add('py-4');
+            }
+        });
+    </script>
+</body>
+</html>
